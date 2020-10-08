@@ -55,13 +55,13 @@ Mur[] murs;
 void setup()
 {
   //Faire afficher en 3D sur tout l'écran
-  fullScreen(P3D);
+  size(640, 480)
  
   //Charger la librairie minim
   minim = new Minim(this);
  
   //Charger la chanson
-  song = minim.loadFile("song2.mp3");
+  song = minim.loadFile("song2.wav");
   
   //Créer l'objet FFT pour analyser la chanson
   fft = new FFT(song.bufferSize(), song.sampleRate());
@@ -391,7 +391,7 @@ class Mur {
 			<div class="box">
 
 
-				<canvas id="targetcanvas" width="700" height="600"></canvas>
+				<canvas id="targetcanvas" width="640" height="480"></canvas>
 			</div>
 
 		</div>
