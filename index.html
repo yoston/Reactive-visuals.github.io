@@ -1,53 +1,78 @@
-<!doctype html>
+<!Doctype: HTML w/ Processing>
+
 <html>
-<head>
-	
-<meta charset="utf-8">
-<meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
-	
-	
-	
-<link rel="stylesheet" href="css/styles.css">
-	
-<title>Reactive visuals</title>
-	<script type="text/javascript" src="js/processing.js"></script>
-</head>
 
-<body>
-	
-	
-	<div class="headbar">
-	
-		<div class="left">
-			<img src="images/Logo.png" >
-		</div>
-		<div class="center">
-			<b>Reactive visuals 
-		</b>
-		</div>
-		<div class="rigth">
-			<img src="images/Logo.png" >
-		</div>
-		
-	</div>
-	<div class="content">
-	
-		
-		<div class="box">
+  <head>
+      <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+      <title>Processing Demo</title>
+      <script type="text/javascript" src="js/processing.js"></script>
+  </head>
+  
+  <body>
+    <h1>Granada High Tutorial</h1>
+    <p>Processing demo</p>
+    
+    <script type="text/processing">
+    
+      Ball[] ball;
 
-			<script type="text/processing">
-      </script>
-      
-		</div>
-		
-	</div>
-	
-	<div class="footer">
-	
-		<div>Club estudiantil de Espol dedicado al Physical Computing</div>
-		<div>Diseñado por : Edgar Moreira y Jhonston Benjumea</div>
-	</div>
-	
-</body>
-	
+      void setup(){
+        size(700, 600);
+        frameRate(100);
+        ball = new Ball[100];
+        for(int i = 0; i < ball.length; i++){
+            ball[i] = new Ball();
+        }
+      }
+
+
+
+      void draw(){
+          background(155,0,0);
+            for(int i = 0; i < ball.length; i++){
+                ball[i].display();
+            }
+
+      }
+      class Ball{
+
+          float x;
+          float y;
+          float Vx;
+          float Vy;
+          float r,g,b,o;
+          float d;
+
+          Ball(){
+              x = random(width);
+              y = random(height);
+              Vx = random(-5,5);
+              Vy = random(-5,5);
+              r = random(255);
+              g = random(255);
+              b = random(255);
+              o = random(255);
+              d = random(30) + 15;
+          }
+
+          void display(){
+              fill(r,g,b,o);
+              ellipse(x,y,d,d);
+              x += Vx;
+              y += Vy;
+              if(x > width || x < 0){
+                  Vx *= -1;
+              }
+              if(y > height || y < 0){
+                  Vy *= -1;
+              }
+          }
+    }
+
+
+    </script>
+    <canvas id="sketch" style="border: 1px solid black;"></canvas>
+    
+  </body>
+  
 </html>
