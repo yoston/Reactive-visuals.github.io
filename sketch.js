@@ -63,7 +63,7 @@ function setup() {
 
 function draw() {
 
-    /*
+    
     let spectrum = fft.analyze();
 
     oldScoreLow = scoreLow;
@@ -97,12 +97,12 @@ function draw() {
 
     time = time + 1.0;
 
-    */
+    
 }
 
 function mouseClicked() {
 
-    /*
+    
     if (song.isPlaying()) {
         // .isPlaying() returns a boolean
         song.stop();
@@ -111,5 +111,5 @@ function mouseClicked() {
         song.play();
         //background(0, 255, 0);
     }
-    */
+    
 }
