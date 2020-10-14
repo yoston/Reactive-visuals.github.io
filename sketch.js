@@ -1,5 +1,30 @@
 // https://kylemcdonald.github.io/cv-examples/
 
+let song;
+
+let time = 0.0;
+
+let specLow = 0.03;
+let specMid = 0.125;
+let specHi = 0.20;
+
+let scoreLow = 0;
+let scoreMid = 0;
+let scoreHi = 0;
+
+// Valores anteriores, para suavizar la reducción.
+let oldScoreLow = scoreLow;
+let oldScoreMid = scoreMid;
+let oldScoreHi = scoreHi;
+
+//Valor de ablandamiento
+let scoreDecreaseRate = 25;
+
+// this variable will hold our shader object
+let theShader;
+// this variable will hold our webcam video
+let cam;
+
 var capture;
 var previousPixels;
 var flow;
@@ -7,79 +32,68 @@ var w = 640,
     h = 480;
 var step = 8;
 
-var uMotionGraph, vMotionGraph;
+function preload() {
+    song = loadSound('assets/song.wav');
+    theShader = loadShader('assets/webcam.vert', 'assets/webcam.frag');
+}
 
 function setup() {
-    createCanvas(w, h);
-    capture = createCapture({
-        audio: false,
-        video: {
-            width: w,
-            height: h
-        }
-    }, function () {
-        console.log('capture ready.')
-    });
-    capture.elt.setAttribute('playsinline', '');
-    capture.hide();
-    flow = new FlowCalculator(step);
-    uMotionGraph = new Graph(100, -step / 2, +step / 2);
-    vMotionGraph = new Graph(100, -step / 2, +step / 2);
-}
+    //createCanvas(windowWidth, windowHeight, WEBGL);
+    createCanvas(w, h, WEBGL);
+    noStroke();
 
-function copyImage(src, dst) {
-    var n = src.length;
-    if (!dst || dst.length != n) dst = new src.constructor(n);
-    while (n--) dst[n] = src[n];
-    return dst;
-}
+    fft = new p5.FFT();
+    song.amp(1);
 
-function same(a1, a2, stride, n) {
-    for (var i = 0; i < n; i += stride) {
-        if (a1[i] != a2[i]) {
-            return false;
-        }
-    }
-    return true;
+    cam = createCapture(VIDEO);
+    cam.size(710, 400);
+
+    cam.hide();
 }
 
 function draw() {
-    capture.loadPixels();
-    if (capture.pixels.length > 0) {
-        if (previousPixels) {
+    let spectrum = fft.analyze();
 
-            // cheap way to ignore duplicate frames
-            if (same(previousPixels, capture.pixels, 4, width)) {
-                return;
-            }
+    oldScoreLow = scoreLow;
+    oldScoreMid = scoreMid;
+    oldScoreHi = scoreHi;
 
-            flow.calculate(previousPixels, capture.pixels, capture.width, capture.height);
-        }
-        previousPixels = copyImage(capture.pixels, previousPixels);
-        image(capture, 0, 0, w, h);
+    //Restablecer valores
+    scoreLow = 0;
+    scoreMid = 0;
+    scoreHi = 0;
 
-        if (flow.flow && flow.flow.u != 0 && flow.flow.v != 0) {
-            uMotionGraph.addSample(flow.flow.u);
-            vMotionGraph.addSample(flow.flow.v);
+    specLow = fft.getEnergy("bass");
+    specMid = fft.getEnergy("mid");
+    specHi = fft.getEnergy("highMid");
 
-            strokeWeight(2);
-            flow.flow.zones.forEach(function (zone) {
-                stroke(map(zone.u, -step, +step, 0, 255),
-                    map(zone.v, -step, +step, 0, 255), 128);
-                line(zone.x, zone.y, zone.x + zone.u, zone.y + zone.v);
-            })
-        }
+    print(specLow);
+    specLowMapped = map(specLow, 135.0, 260.0, 0.0, 1.0)
+    //print(specMid);
 
-        noFill();
-        stroke(255);
+    // shader() sets the active shader with our shader
+    shader(theShader);
 
-        // draw left-right motion
-        uMotionGraph.draw(width, height / 2);
-        line(0, height / 4, width, height / 4);
+    // passing cam as a texture
+    theShader.setUniform('tex0', cam);
+    theShader.setUniform('low', specLowMapped);
+    theShader.setUniform('time', time);
+    //theShader.setUniform('mid', specMid);
 
-        // draw up-down motion
-        translate(0, height / 2);
-        vMotionGraph.draw(width, height / 2);
-        line(0, height / 4, width, height / 4);
+    // rect gives us some geometry on the screen
+    rect(0, 0, width, height);
+
+    time = time + 1.0;
+
+}
+
+function mouseClicked() {
+    if (song.isPlaying()) {
+        // .isPlaying() returns a boolean
+        song.stop();
+        //background(255, 0, 0);
+    } else {
+        song.play();
+        //background(0, 255, 0);
     }
 }
