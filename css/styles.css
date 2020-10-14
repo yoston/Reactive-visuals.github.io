@@ -45,8 +45,12 @@ body{
 }
 .box{
 		
-		width: 900;
-		height: 700;
+		width: 700px;
+		height: 540px;
+
+	
+		min-width: 700px;
+		min-height: 540px;
 		 border: 1px solid #000000;
 		background-color: white;
 		 -moz-border-radius: 15px;
@@ -55,6 +59,8 @@ body{
 		display: flex;
 		justify-content: center;
 		align-items: center;
+
+
 		
 		
 	}
