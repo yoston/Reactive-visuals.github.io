@@ -53,8 +53,8 @@ body{
 		 -webkit-border-radius:15px;
 		
 		display: flex;
-		justify-content: space-around;
-		flex-direction: column;
+		justify-content: center;
+		
 		
 		
 	}
