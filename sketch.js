@@ -33,8 +33,10 @@ var w = 640,
 var step = 8;
 
 function preload() {
+    /*
     song = loadSound('assets/song.wav');
     theShader = loadShader('assets/webcam.vert', 'assets/webcam.frag');
+    */
 }
 
 function setup() {
@@ -43,6 +45,9 @@ function setup() {
     var canvas = createCanvas(w, h, WEBGL);
     canvas.parent('sketch-holder');
 
+    background(255, 0, 200);
+
+    /*
     noStroke();
 
     fft = new p5.FFT();
@@ -52,9 +57,13 @@ function setup() {
     cam.size(710, 400);
 
     cam.hide();
+
+    */
 }
 
 function draw() {
+
+    /*
     let spectrum = fft.analyze();
 
     oldScoreLow = scoreLow;
@@ -88,9 +97,12 @@ function draw() {
 
     time = time + 1.0;
 
+    */
 }
 
 function mouseClicked() {
+
+    /*
     if (song.isPlaying()) {
         // .isPlaying() returns a boolean
         song.stop();
@@ -99,4 +111,5 @@ function mouseClicked() {
         song.play();
         //background(0, 255, 0);
     }
+    */
 }
