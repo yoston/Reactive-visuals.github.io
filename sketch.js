@@ -39,7 +39,12 @@ function preload() {
 
 function setup() {
     //createCanvas(windowWidth, windowHeight, WEBGL);
-    createCanvas(w, h, WEBGL);
+    
+    var cnv = createCanvas(w, h, WEBGL);
+    var x = (windowWidth - width) / 2;
+    var y = (windowHeight - height) / 2;
+    cnv.position(x, y);
+
     noStroke();
 
     fft = new p5.FFT();
