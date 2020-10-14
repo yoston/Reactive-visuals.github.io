@@ -47,7 +47,7 @@ function setup() {
 
     background(255, 0, 200);
 
-    /*
+    
     noStroke();
 
     fft = new p5.FFT();
@@ -58,7 +58,7 @@ function setup() {
 
     cam.hide();
 
-    */
+    
 }
 
 function draw() {
