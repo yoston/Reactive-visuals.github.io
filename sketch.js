@@ -33,10 +33,10 @@ var w = 640,
 var step = 8;
 
 function preload() {
-    /*
+    
     song = loadSound('assets/song.wav');
     theShader = loadShader('assets/webcam.vert', 'assets/webcam.frag');
-    */
+    
 }
 
 function setup() {
