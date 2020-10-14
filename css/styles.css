@@ -1,0 +1,85 @@
+@charset "utf-8";
+/* CSS Document */
+html, body {
+  height: 100%;
+  font-family: Verdana;
+}
+
+body{
+	
+	background-image: url("../images/fondo.jpg");
+  	background-repeat: no-repeat;
+  	background-attachment: fixed;  
+  	background-size: cover;
+	margin: 0;
+}
+.headbar{
+	background-color: white;
+	overflow: hidden;
+	display: flex;
+	justify-content: space-between;
+	height: 3rem;
+	font-size: 20px;
+	padding: 10px
+	
+}
+.left img{
+	height: 3rem;
+	
+}
+
+.center {
+	
+	margin-top: 10px;
+	
+	
+	
+}
+.rigth img{
+	
+	height: 3rem;
+	
+	
+}
+.box{
+		
+		width: 60rem;
+		height: 40rem;
+		 border: 1px solid #000000;
+		background-color: white;
+		 -moz-border-radius: 15px;
+		 -webkit-border-radius:15px;
+		
+		display: flex;
+		justify-content: space-around;
+		flex-direction: column;
+		
+		
+	}
+.content{
+  min-height: calc(100% - 9rem);
+display: flex;
+	justify-content: center;
+	align-items: center;
+}
+
+.footer{
+	background-color: #0071BB;
+	height: 3rem;
+	
+	
+	color: white;
+	font-size: 18px;
+	
+	padding: 1.5rem 2rem 1rem 2rem;
+	display:flex;
+	justify-content: space-between;
+	
+	overflow: hidden;
+	
+	
+	
+	
+	
+	
+}
